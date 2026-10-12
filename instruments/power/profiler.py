@@ -20,15 +20,7 @@ class PowerProfiler:
         self.analog = analog
         self.shunt = shunt
 
-    def capture(
-        self,
-        sample_rate: float,
-        sample_count: int,
-        supply_voltage: float,
-        *,
-        voltage_range: float = 5.0,
-        shunt_range: float = 1.0,
-    ) -> PowerCapture:
+    def capture(self, sample_rate: float, sample_count: int, supply_voltage: float, *, voltage_range: float = 5.0, shunt_range: float = 1.0) -> PowerCapture:
         """
         Capture the DUT voltage and shunt voltage, then calculate
         current and power for every sample.
@@ -38,14 +30,7 @@ class PowerProfiler:
         AD3 voltage measurement.
         """
 
-        capture = self.analog.capture(
-            [
-                self.VOLTAGE_CHANNEL,
-                self.SHUNT_CHANNEL,
-            ],
-            sample_rate,
-            sample_count
-        )
+        capture = self.analog.capture([self.VOLTAGE_CHANNEL, self.SHUNT_CHANNEL], sample_rate, sample_count)
 
         # Actual voltage across the DUT/load.
         voltage = capture.channel(self.VOLTAGE_CHANNEL)
